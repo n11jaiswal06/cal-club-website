@@ -920,7 +920,7 @@ footer {
 .footer-copy {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
 }
 .footer-heart {
   display: inline-block;
