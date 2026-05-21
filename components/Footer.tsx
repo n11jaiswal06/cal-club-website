@@ -47,7 +47,7 @@ export default function Footer() {
             <a href="/terms">Terms of Service</a>
           </div>
           <div className="footer-copy">
-            © 2026 Cal Club. Made in India{" "}
+            © 2026 Cal Club. Made in India with{" "}
             <svg
               className="footer-heart"
               width="14"
