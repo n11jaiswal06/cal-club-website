@@ -901,11 +901,13 @@ footer {
   margin-top: 12px;
 }
 .footer-social a {
+  display: inline-flex;
   width: 20px; height: 20px;
   color: var(--stone);
-  transition: color .15s ease;
+  transition: opacity .15s ease;
 }
-.footer-social a:hover { color: var(--onyx); }
+.footer-social a img { display: block; border-radius: 4px; }
+.footer-social a:hover { opacity: 0.75; }
 
 .footer-bottom {
   margin-top: 32px;
