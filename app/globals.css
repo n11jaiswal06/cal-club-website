@@ -390,6 +390,16 @@ a { color: inherit; }
 .hero-credential {
   margin-top: 28px;
   font-size: 13.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-credential-logo {
+  width: 18px;
+  height: 18px;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .hero-cta-row {
   margin-top: 20px;

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import PhoneFrame from "./PhoneFrame";
 import StoreButtons, { type StoreButtonsHandle } from "./StoreButtons";
@@ -28,7 +29,17 @@ export default function Hero({ pulseSignal }: Props) {
               Cal Club knows your training, your goals, and the food you actually eat — and coaches
               you in real time.
             </p>
-            <div className="smallcaps ember hero-credential">Founded by ex-cult.fit</div>
+            <div className="smallcaps ember hero-credential">
+              <span>Founded by ex-cult.fit</span>
+              <Image
+                src="/assets/cultfit-logo.png"
+                alt=""
+                width={20}
+                height={20}
+                className="hero-credential-logo"
+                aria-hidden="true"
+              />
+            </div>
             <div className="btn-row hero-cta-row">
               <StoreButtons ref={ctaRef} />
             </div>
