@@ -217,7 +217,10 @@ a { color: inherit; }
   gap: 48px;
   align-items: center;
 }
-@media (min-width: 900px) {
+/* Hold off on splitting to two columns until 1080+ — between 900 and 1079
+   the text column was too narrow for the CTAs to fit in one row, and the
+   phone-wrap min-height forced vertical centering of cramped content. */
+@media (min-width: 1080px) {
   .hero-grid {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
     gap: 72px;
@@ -253,7 +256,7 @@ a { color: inherit; }
   gap: 8px;
   width: 100%;
 }
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .hero-phone-col {
     align-items: flex-end;
   }
@@ -290,11 +293,10 @@ a { color: inherit; }
   display: flex; justify-content: center; align-items: center;
   padding: 32px 24px 16px;
 }
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .phone-wrap {
     padding: 0;
     justify-content: flex-end;
-    min-height: 720px;
   }
 }
 
@@ -318,7 +320,7 @@ a { color: inherit; }
   z-index: 0;
   pointer-events: none;
 }
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .phone-wrap::before {
     right: 0; left: auto;
     transform: translate(-15%, -50%);
