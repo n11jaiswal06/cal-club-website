@@ -79,12 +79,12 @@ a { color: inherit; }
 .smallcaps.ember { color: var(--ember); }
 
 .brand {
-  font-weight: 700; font-size: 17px; letter-spacing: -0.025em;
+  font-weight: 700; font-size: 24px; letter-spacing: -0.025em;
   color: var(--onyx);
 }
 
 .brand-logo {
-  width: 28px; height: 28px;
+  width: 39px; height: 39px;
   display: block;
   object-fit: contain;
 }
@@ -257,11 +257,11 @@ a { color: inherit; }
 
 /* Hero phone — larger size so contents are readable */
 .hero-phone .phone {
-  max-width: 320px;
+  max-width: 224px;
   transform: rotate(1.4deg) translateX(-18%);
 }
-@media (min-width: 760px)  { .hero-phone .phone { max-width: 340px; } }
-@media (min-width: 1080px) { .hero-phone .phone { max-width: 360px; } }
+@media (min-width: 760px)  { .hero-phone .phone { max-width: 238px; } }
+@media (min-width: 1080px) { .hero-phone .phone { max-width: 252px; } }
 
 /* iPhone bezel + screen */
 .phone-wrap {

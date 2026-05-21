@@ -11,8 +11,8 @@ export default function BrandMark({ href, priority }: Props) {
       <Image
         src="/assets/cal-club-logo.png"
         alt=""
-        width={28}
-        height={28}
+        width={39}
+        height={39}
         className="brand-logo"
         priority={priority}
       />

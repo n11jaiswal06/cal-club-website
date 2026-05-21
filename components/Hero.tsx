@@ -41,6 +41,7 @@ export default function Hero({ pulseSignal }: Props) {
               tint="rgba(217,130,100,0.38)"
               fade="rgba(217,130,100,0.06)"
               priority
+              sizes="(min-width: 1080px) 252px, (min-width: 760px) 238px, 80vw"
               wrapClassName="hero-phone"
               ariaLabel="Cal Club app — Morning Brief screen"
             />
