@@ -395,8 +395,8 @@ a { color: inherit; }
   gap: 8px;
 }
 .hero-credential-logo {
-  width: 18px;
-  height: 18px;
+  width: 21.6px;
+  height: 21.6px;
   display: block;
   object-fit: contain;
   flex-shrink: 0;
