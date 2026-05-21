@@ -263,6 +263,18 @@ a { color: inherit; }
 @media (min-width: 760px)  { .hero-phone .phone { max-width: 238px; } }
 @media (min-width: 1080px) { .hero-phone .phone { max-width: 252px; } }
 
+/* Hero backdrop blob — scale 30% to match the smaller phone,
+   and shift its desktop anchor left to track the phone's translateX(-18%). */
+.hero-phone.phone-wrap::before {
+  max-width: 448px;
+  max-height: 504px;
+}
+@media (min-width: 900px) {
+  .hero-phone.phone-wrap::before {
+    transform: translate(-25%, -50%);
+  }
+}
+
 /* iPhone bezel + screen */
 .phone-wrap {
   position: relative;
