@@ -245,7 +245,7 @@ export default function TermsPage() {
       <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
       <ul>
         <li>
-          By email: <a href="mailto:support@thecalclub.com">support@thecalclub.com</a>
+          By email: <a href="mailto:naman@thecalclub.com">naman@thecalclub.com</a>
         </li>
       </ul>
     </LegalPage>

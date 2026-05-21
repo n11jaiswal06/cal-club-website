@@ -153,7 +153,7 @@ export default function PrivacyPage() {
         is processed on Your device and on Our secure servers. When transmitted to Our servers, data
         is encrypted in transit using TLS and encrypted at rest. Health data is associated with Your
         account identifier and is retained for as long as Your account is active. You may request
-        deletion at any time by emailing support@thecalclub.com or using the &quot;Delete
+        deletion at any time by emailing naman@thecalclub.com or using the &quot;Delete
         Account&quot; option in the app.
       </p>
       <p>
@@ -435,7 +435,7 @@ export default function PrivacyPage() {
       <p>If you have any questions about this Privacy Policy, You can contact us:</p>
       <ul>
         <li>
-          By email: <a href="mailto:support@thecalclub.com">support@thecalclub.com</a>
+          By email: <a href="mailto:naman@thecalclub.com">naman@thecalclub.com</a>
         </li>
       </ul>
     </LegalPage>
