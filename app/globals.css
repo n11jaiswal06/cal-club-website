@@ -29,6 +29,9 @@ html, body {
   font-family: var(--font-jakarta), "Plus Jakarta Sans", -apple-system, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Safety: the hero phone halo (box-shadow) can paint past the right edge
+     on narrow viewports — clip horizontal overflow without affecting layout. */
+  overflow-x: hidden;
 }
 
 a { color: inherit; }
@@ -112,7 +115,9 @@ a { color: inherit; }
   margin: 0 auto;
   padding: 0 24px;
 }
-@media (min-width: 760px)  { .container { padding: 0 40px; } }
+/* More breathing room on tablets where the hero is still single-column. */
+@media (min-width: 600px)  { .container { padding: 0 32px; } }
+@media (min-width: 760px)  { .container { padding: 0 56px; } }
 @media (min-width: 1080px) { .container { padding: 0 48px; } }
 
 .section { padding: 56px 0; }
@@ -206,9 +211,15 @@ a { color: inherit; }
    Hero
    ───────────────────────────────────────────────────────────── */
 .hero {
-  padding: 56px 0 64px;
+  padding: 48px 0 56px;
 }
+/* At tablet widths the hero is single-column; keep top padding modest so
+   the headline doesn't sit in a vast void. The big editorial padding only
+   kicks in once we're in the two-column layout at 1080+. */
 @media (min-width: 760px) {
+  .hero { padding: 64px 0 72px; }
+}
+@media (min-width: 1080px) {
   .hero { padding: 88px 0 96px; }
 }
 .hero-grid {
@@ -262,13 +273,21 @@ a { color: inherit; }
   }
 }
 
-/* Hero phone — larger size so contents are readable */
+/* Hero phone — sized so the on-screen content stays readable. In single-
+   column mode the phone is centred under the text (no leftward shift); the
+   tilt + offset only kick in at ≥1080 where the phone lives in its own
+   right column and needs to lean toward the text for balance. */
 .hero-phone .phone {
   max-width: 224px;
-  transform: rotate(1.4deg) translateX(-30%);
+  transform: rotate(1.4deg);
 }
 @media (min-width: 760px)  { .hero-phone .phone { max-width: 238px; } }
-@media (min-width: 1080px) { .hero-phone .phone { max-width: 252px; } }
+@media (min-width: 1080px) {
+  .hero-phone .phone {
+    max-width: 252px;
+    transform: rotate(1.4deg) translateX(-30%);
+  }
+}
 
 /* Hero backdrop glow — handled as a box-shadow on the phone itself rather
    than a ::before blob, so the halo automatically tracks the phone's
