@@ -87,6 +87,10 @@ a { color: inherit; }
   width: 39px; height: 39px;
   display: block;
   object-fit: contain;
+  /* The PNG has ~23% transparent padding on each side, which makes the
+     visible glyph float right of the container edge. Pull it back so the
+     visual left of the logo aligns with the headline text below. */
+  margin-left: -9px;
 }
 
 /* Desktop bumps for hero display */
