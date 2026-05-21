@@ -263,31 +263,20 @@ a { color: inherit; }
 @media (min-width: 760px)  { .hero-phone .phone { max-width: 238px; } }
 @media (min-width: 1080px) { .hero-phone .phone { max-width: 252px; } }
 
-/* Hero backdrop glow — soft halo that hugs the phone evenly on all sides.
-   Tight ellipse, centered on the phone (not the wrap), so it shifts with
-   the phone's leftward translate instead of staying anchored to the wrap. */
+/* Hero backdrop glow — handled as a box-shadow on the phone itself rather
+   than a ::before blob, so the halo automatically tracks the phone's
+   rotation + translate instead of having to be re-positioned per breakpoint.
+   Disable the inherited wrap ::before for the hero variant. */
 .hero-phone.phone-wrap::before {
-  width: 110%;
-  height: 80%;
-  max-width: 380px;
-  max-height: 560px;
-  background:
-    radial-gradient(
-      ellipse at center,
-      var(--phone-tint, rgba(217,130,100,0.55)) 0%,
-      var(--phone-tint-fade, rgba(217,130,100,0.22)) 30%,
-      transparent 68%
-    );
-  filter: blur(34px);
+  display: none;
 }
-@media (min-width: 900px) {
-  .hero-phone.phone-wrap::before {
-    /* Phone sits at flex-end with translateX(-30%) of its own width.
-       Anchor blob to the right edge and pull it left so its centre lands
-       on the phone's visual centre. */
-    right: 0; left: auto;
-    transform: translate(-3%, -50%);
-  }
+.hero-phone .phone {
+  box-shadow:
+    0 0 140px 36px rgba(217,130,100,0.45),
+    0 0 60px 8px rgba(217,130,100,0.30),
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 30px 60px -20px rgba(40,30,20,0.32),
+    0 12px 28px -12px rgba(40,30,20,0.18);
 }
 
 /* iPhone bezel + screen */
