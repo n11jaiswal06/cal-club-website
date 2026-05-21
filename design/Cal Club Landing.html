@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cal Club — The AI nutrition coach for people who work out.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Luffu design system — closed palette + typography
+       ───────────────────────────────────────────────────────────── */
+    :root {
+      --onyx:        #1A1A1A;
+      --linen:       #FAF8F4;
+      --cream:       #F5F2EC;
+      --sand:        #EDE8DF;
+      --stone:       #A8A39A;
+      --stone-deep:  #6B6560;
+      --card:        #FFFFFF;
+      --card-border: #EBE6DC;
+      --divider:     #E8E3D9;
+      --ember:       #D95F28;
+
+      --text-body:   rgba(26,26,26,0.90);
+      --text-detail: rgba(26,26,26,0.70);
+
+      --r-card:   18px;
+      --r-cardxl: 22px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--linen);
+      color: var(--onyx);
+      font-family: "Plus Jakarta Sans", -apple-system, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       Type tokens
+       ───────────────────────────────────────────────────────────── */
+    .display-large {
+      font-weight: 700; font-size: 34px; line-height: 1.05;
+      letter-spacing: -0.04em; color: var(--onyx);
+      text-wrap: balance;
+    }
+    .title-large {
+      font-weight: 700; font-size: 20px; line-height: 1.25;
+      letter-spacing: -0.02em; color: var(--onyx);
+      text-wrap: balance;
+    }
+    .title-small {
+      font-weight: 600; font-size: 15px; line-height: 1.35;
+      letter-spacing: -0.01em; color: var(--onyx);
+    }
+    .body-large {
+      font-weight: 400; font-size: 17px; line-height: 1.5;
+      color: var(--text-body);
+    }
+    .body-medium {
+      font-weight: 400; font-size: 14px; line-height: 1.55;
+      color: var(--text-detail);
+    }
+    .body-small {
+      font-weight: 400; font-size: 13px; line-height: 1.5;
+      color: var(--stone);
+    }
+    .smallcaps {
+      font-weight: 600; font-size: 11px; line-height: 1.2;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--stone);
+    }
+    .smallcaps.ember { color: var(--ember); }
+
+    .brand {
+      font-weight: 700; font-size: 17px; letter-spacing: -0.025em;
+      color: var(--onyx);
+    }
+
+    .brand-logo {
+      width: 28px; height: 28px;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* Desktop bumps for hero display */
+    @media (min-width: 760px) {
+      .display-large { font-size: 56px; letter-spacing: -0.04em; }
+      .title-large   { font-size: 32px; letter-spacing: -0.025em; line-height: 1.18; }
+      .body-large    { font-size: 19px; }
+    }
+    @media (min-width: 1080px) {
+      .display-large { font-size: 64px; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       Layout primitives
+       ───────────────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    @media (min-width: 760px)  { .container { padding: 0 40px; } }
+    @media (min-width: 1080px) { .container { padding: 0 48px; } }
+
+    .section { padding: 56px 0; }
+    .section-tight { padding: 40px 0; }
+    @media (min-width: 760px) {
+      .section { padding: 88px 0; }
+      .section-tight { padding: 56px 0; }
+    }
+
+    .hairline { height: 1px; background: var(--divider); }
+
+    /* ─────────────────────────────────────────────────────────────
+       Nav (sticky, blur on scroll)
+       ───────────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--linen);
+      border-bottom: 1px solid transparent;
+      transition: background .25s ease, border-color .25s ease;
+    }
+    .nav.scrolled {
+      background: rgba(250,248,244,0.78);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom-color: var(--divider);
+    }
+    .nav-inner {
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+    }
+    .nav-links {
+      display: none;
+      gap: 28px;
+      margin-left: auto;
+      margin-right: 24px;
+    }
+    .nav-links a {
+      font-weight: 500; font-size: 14px;
+      color: var(--onyx);
+      text-decoration: none;
+      transition: color .15s ease;
+    }
+    .nav-links a:hover { color: var(--stone-deep); }
+    @media (min-width: 760px) {
+      .nav-links { display: flex; }
+    }
+
+    /* Brand mark */
+    .brand-mark {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      color: var(--onyx);
+    }
+    .brand-mark svg { display: block; }
+
+    /* Buttons — onyx pill */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px;
+      height: 44px; padding: 0 22px;
+      background: var(--onyx); color: var(--linen);
+      border: none; border-radius: 999px;
+      font-family: inherit;
+      font-weight: 600; font-size: 14px; letter-spacing: -0.005em;
+      text-decoration: none; cursor: pointer;
+      transition: transform .12s ease, background .15s ease;
+      min-width: 44px; min-height: 44px;
+    }
+    .btn:hover { background: #000; }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-lg { height: 52px; padding: 0 26px; font-size: 15px; }
+
+    .btn-row {
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+
+    /* Pulse hint when "Download" nav scrolls back to hero */
+    .pulse {
+      animation: ccPulse 1.4s ease-out 1;
+    }
+    @keyframes ccPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(217,95,40,0.55); }
+      70%  { box-shadow: 0 0 0 16px rgba(217,95,40,0); }
+      100% { box-shadow: 0 0 0 0 rgba(217,95,40,0); }
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       Hero
+       ───────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 56px 0 64px;
+    }
+    @media (min-width: 760px) {
+      .hero { padding: 88px 0 96px; }
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: 72px;
+      }
+    }
+
+    .hero-text { max-width: 38ch; }
+    .hero-sub {
+      margin: 20px 0 0;
+      max-width: 36ch;
+    }
+    .hero-credential {
+      margin-top: 28px;
+    }
+    .hero-cta-row {
+      margin-top: 20px;
+    }
+    .hero-fineprint {
+      margin-top: 14px;
+      color: var(--stone);
+      font-size: 12.5px;
+    }
+    @media (min-width: 760px) {
+      .hero-sub { margin-top: 24px; }
+      .hero-credential { margin-top: 36px; }
+      .hero-cta-row { margin-top: 22px; }
+    }
+
+    .hero-phone-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    @media (min-width: 900px) {
+      .hero-phone-col {
+        align-items: flex-end;
+      }
+    }
+
+    /* Hero phone — larger size so contents are readable */
+    .hero-phone .phone {
+      max-width: 320px;
+      transform: rotate(1.4deg) translateX(-18%);
+    }
+    @media (min-width: 760px)  { .hero-phone .phone { max-width: 340px; } }
+    @media (min-width: 1080px) { .hero-phone .phone { max-width: 360px; } }
+
+    /* iPhone bezel + animated screen track */
+    .phone-wrap {
+      position: relative;
+      width: 100%;
+      display: flex; justify-content: center; align-items: center;
+      padding: 32px 24px 16px;
+    }
+    @media (min-width: 900px) {
+      .phone-wrap {
+        padding: 0;
+        justify-content: flex-end;
+        min-height: 720px;
+      }
+    }
+
+    /* Tinted backdrop blob — shifts per active screen.
+       Sits behind the phone, fades into linen. */
+    .phone-wrap::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 130%; height: 90%;
+      max-width: 640px; max-height: 720px;
+      transform: translate(-50%, -50%);
+      background:
+        radial-gradient(
+          ellipse at center,
+          var(--phone-tint, rgba(217,130,100,0.32)) 0%,
+          var(--phone-tint-fade, rgba(217,130,100,0.06)) 35%,
+          transparent 70%
+        );
+      filter: blur(28px);
+      transition: background .8s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @media (min-width: 900px) {
+      .phone-wrap::before {
+        right: 0; left: auto;
+        transform: translate(-15%, -50%);
+      }
+    }
+
+    .phone {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 1206 / 2622;
+      background: #0E0E0E;
+      border-radius: 50px;
+      padding: 9px;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.05),
+        0 30px 60px -20px rgba(40,30,20,0.32),
+        0 12px 28px -12px rgba(40,30,20,0.18);
+      transition: transform .6s cubic-bezier(.7,0,.3,1);
+    }
+    @media (min-width: 760px)  { .phone { max-width: 320px; } }
+    @media (min-width: 1080px) { .phone { max-width: 340px; } }
+
+    .phone-screen {
+      position: relative;
+      width: 100%; height: 100%;
+      border-radius: 41px;
+      overflow: hidden;
+      background: #4F6470;
+    }
+
+    /* Horizontal track that translates through the three screens */
+    .phone-track {
+      position: absolute; inset: 0;
+      display: flex;
+      width: 300%;
+      transition: transform .75s cubic-bezier(.7,0,.18,1);
+      will-change: transform;
+    }
+    .phone-track img,
+    .phone-static {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .phone-track img { width: 33.3333%; flex-shrink: 0; }
+
+    .phone-island {
+      position: absolute;
+      top: 2.4%; left: 50%;
+      transform: translateX(-50%);
+      width: 30%; height: 3.5%;
+      background: #000;
+      border-radius: 999px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Dot indicators below the phone */
+    .phone-dots {
+      position: relative;
+      z-index: 2;
+      margin-top: 28px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-dots button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      min-width: 44px;
+      min-height: 44px;
+    }
+    .phone-dots .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--stone);
+      opacity: 0.4;
+      transition: opacity .25s ease, transform .25s ease, background .25s ease;
+    }
+    .phone-dots button.active .dot {
+      background: var(--onyx);
+      opacity: 1;
+      transform: scale(1.25);
+    }
+    .phone-dots .label {
+      font-weight: 600;
+      font-size: 10.5px;
+      line-height: 1;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--stone);
+      transition: color .25s ease;
+    }
+    .phone-dots button.active .label {
+      color: var(--onyx);
+    }
+    .phone-dots button:hover .dot { opacity: 0.85; }
+    .phone-dots button:hover .label { color: var(--stone-deep); }
+
+    /* ─────────────────────────────────────────────────────────────
+       Check-ins triptych
+       ───────────────────────────────────────────────────────────── */
+    .checkins {
+      background: var(--cream);
+    }
+    .checkins-head { max-width: 28ch; }
+    @media (min-width: 760px) { .checkins-head { max-width: 32ch; } }
+
+    .checkins-grid {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (min-width: 760px) {
+      .checkins-grid {
+        margin-top: 72px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+    }
+    @media (min-width: 1080px) {
+      .checkins-grid { gap: 48px; }
+    }
+
+    .checkin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    @media (min-width: 760px) {
+      .checkin { text-align: center; align-items: center; }
+    }
+
+    .checkin .phone-wrap {
+      max-width: 260px;
+      padding: 16px 0;
+      min-height: 0;
+      justify-content: center;
+    }
+    @media (min-width: 760px) {
+      .checkin .phone-wrap {
+        max-width: 100%;
+        padding: 8px 0;
+      }
+    }
+    .checkin .phone {
+      max-width: 220px;
+      transform: rotate(0);
+    }
+    @media (min-width: 760px)  { .checkin .phone { max-width: 200px; } }
+    @media (min-width: 1080px) { .checkin .phone { max-width: 220px; } }
+
+    .checkin-label {
+      margin-top: 28px;
+    }
+    .checkin-title {
+      margin-top: 10px;
+      font-weight: 700;
+      font-size: 22px; line-height: 1.2;
+      letter-spacing: -0.022em;
+      color: var(--onyx);
+    }
+    @media (min-width: 760px) {
+      .checkin-title { font-size: 24px; }
+    }
+    .checkin-body {
+      margin: 10px auto 0;
+      font-size: 15px; line-height: 1.55;
+      color: var(--text-detail);
+      max-width: 32ch;
+    }
+    .checkin .phone-wrap::before {
+      max-width: 360px;
+      max-height: 460px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       Problem section — numbered editorial rows
+       ───────────────────────────────────────────────────────────── */
+    .problem-head { max-width: 22ch; }
+    @media (min-width: 760px) { .problem-head { max-width: 24ch; } }
+
+    .problem-rows {
+      margin-top: 32px;
+      border-top: 1px solid var(--divider);
+    }
+    @media (min-width: 760px) { .problem-rows { margin-top: 48px; } }
+
+    .problem-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--divider);
+      align-items: baseline;
+    }
+    @media (min-width: 760px) {
+      .problem-row {
+        grid-template-columns: 64px minmax(0, 1.1fr) minmax(0, 1.4fr);
+        column-gap: 40px;
+        padding: 36px 0;
+        align-items: baseline;
+      }
+    }
+    @media (min-width: 1080px) {
+      .problem-row {
+        grid-template-columns: 80px minmax(0, 1fr) minmax(0, 1.4fr);
+        column-gap: 56px;
+      }
+    }
+
+    .problem-num {
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1;
+      letter-spacing: 1.4px;
+      color: var(--stone);
+      font-variant-numeric: tabular-nums;
+      text-transform: uppercase;
+    }
+    @media (min-width: 760px) { .problem-num { padding-top: 4px; } }
+
+    .problem-title {
+      font-weight: 600;
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: -0.018em;
+      color: var(--onyx);
+      text-wrap: balance;
+    }
+    @media (min-width: 760px) { .problem-title { font-size: 22px; line-height: 1.25; } }
+    @media (min-width: 1080px) { .problem-title { font-size: 24px; } }
+
+    .problem-body {
+      font-weight: 400;
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--text-detail);
+      max-width: 48ch;
+    }
+    @media (min-width: 760px) { .problem-body { font-size: 16.5px; } }
+
+    /* ─────────────────────────────────────────────────────────────
+       FAQ
+       ───────────────────────────────────────────────────────────── */
+    .faq-card {
+      margin-top: 32px;
+      background: var(--card);
+      border: 0.5px solid var(--card-border);
+      border-radius: var(--r-card);
+      overflow: hidden;
+    }
+    @media (min-width: 760px) { .faq-card { margin-top: 40px; } }
+
+    .faq-row + .faq-row { border-top: 1px solid var(--divider); }
+
+    .faq-q {
+      width: 100%;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 20px 22px;
+      display: flex; align-items: flex-start; gap: 16px;
+      min-height: 44px;
+    }
+    @media (min-width: 760px) { .faq-q { padding: 24px 28px; } }
+
+    .faq-q span {
+      flex: 1;
+      font-weight: 600; font-size: 15px; line-height: 1.4;
+      letter-spacing: -0.012em; color: var(--onyx);
+    }
+    @media (min-width: 760px) { .faq-q span { font-size: 16px; } }
+
+    .faq-q svg {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      stroke: var(--stone);
+      transition: transform .22s ease;
+      margin-top: 2px;
+    }
+    .faq-row.open .faq-q svg { transform: rotate(180deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+    .faq-a-inner {
+      padding: 0 22px 24px;
+      font-weight: 400; font-size: 14.5px; line-height: 1.6;
+      color: var(--text-detail);
+      max-width: 60ch;
+    }
+    @media (min-width: 760px) {
+      .faq-a-inner { padding: 0 28px 28px; font-size: 15px; }
+    }
+
+    .faq-foot {
+      margin-top: 20px;
+      color: var(--stone);
+    }
+    .faq-foot a {
+      color: var(--stone);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color .15s ease;
+    }
+    .faq-foot a:hover { color: var(--onyx); }
+
+    /* ─────────────────────────────────────────────────────────────
+       Final CTA
+       ───────────────────────────────────────────────────────────── */
+    .cta-final {
+      background: var(--cream);
+      text-align: center;
+      padding: 80px 0 88px;
+    }
+    @media (min-width: 760px) {
+      .cta-final { padding: 120px 0 128px; }
+    }
+    .cta-final h2 {
+      margin: 0;
+    }
+    .cta-final p {
+      margin: 20px auto 0;
+      max-width: 30ch;
+      color: var(--text-body);
+    }
+    @media (min-width: 760px) {
+      .cta-final p { max-width: 36ch; margin-top: 24px; }
+    }
+    .cta-final .btn-row {
+      margin-top: 36px;
+      justify-content: center;
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       Footer
+       ───────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--linen);
+      border-top: 1px solid var(--divider);
+      padding: 40px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 760px) {
+      .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 48px;
+      }
+    }
+    .footer-tagline {
+      margin: 12px 0 0;
+      max-width: 32ch;
+      color: var(--stone);
+    }
+    .footer-col-title {
+      color: var(--stone);
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0; margin: 12px 0 0;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .footer-links a {
+      color: var(--stone-deep);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .15s ease;
+    }
+    .footer-links a:hover { color: var(--onyx); }
+
+    .footer-social {
+      display: flex; gap: 14px;
+      margin-top: 12px;
+    }
+    .footer-social a {
+      width: 20px; height: 20px;
+      color: var(--stone);
+      transition: color .15s ease;
+    }
+    .footer-social a:hover { color: var(--onyx); }
+
+    .footer-bottom {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--divider);
+      display: flex; flex-direction: column; gap: 8px;
+      color: var(--stone);
+      font-size: 12.5px;
+    }
+    .footer-bottom .legal {
+      display: flex; gap: 14px;
+    }
+    .footer-bottom a {
+      color: var(--stone);
+      text-decoration: none;
+    }
+    .footer-bottom a:hover { color: var(--onyx); }
+    @media (min-width: 760px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────
+       Responsive helper tag (top-left)
+       ───────────────────────────────────────────────────────────── */
+    .responsive-note {
+      position: fixed;
+      bottom: 16px; right: 16px;
+      z-index: 100;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 10px 6px 8px;
+      background: rgba(26,26,26,0.85);
+      color: var(--linen);
+      border-radius: 999px;
+      font-size: 11px; letter-spacing: 0.02em;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      pointer-events: auto;
+      transition: opacity .25s ease;
+    }
+    .responsive-note .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ember);
+    }
+    .responsive-note button {
+      background: none; border: none; color: var(--linen);
+      opacity: 0.55; cursor: pointer;
+      padding: 0 0 0 4px; font-size: 13px; line-height: 1;
+    }
+    .responsive-note button:hover { opacity: 1; }
+    .responsive-note.hidden { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Responsive helper -->
+  <div class="responsive-note" id="responsiveNote">
+    <span class="dot"></span>
+    Responsive · resize the window to test mobile
+    <button aria-label="Dismiss" id="dismissNote">×</button>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand-mark" aria-label="Cal Club">
+        <img src="assets/cal-club-logo.png" alt="" class="brand-logo" />
+        <span class="brand">Cal Club</span>
+      </a>
+      <div class="nav-spacer" style="flex: 1;"></div>
+      <a href="#top" class="btn" id="navDownload">Download</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="top">
+    <div class="container hero">
+      <div class="hero-grid">
+        <div>
+          <h1 class="display-large hero-text">The AI nutrition coach for people who work out.</h1>
+          <p class="body-large hero-sub">
+            Cal Club knows your training, your goals, and the food you actually eat — and coaches you in real time.
+          </p>
+          <div class="smallcaps ember hero-credential">Founded by ex-cult.fit</div>
+          <div class="btn-row hero-cta-row" id="heroCtas">
+            <a href="#" class="btn btn-lg" data-cta="ios">
+              <!-- Apple glyph -->
+              <svg width="14" height="16" viewBox="0 0 14 16" fill="#FAF8F4" aria-hidden="true">
+                <path d="M10.2 8.5c0-1.7 1.4-2.5 1.5-2.6-.8-1.2-2-1.3-2.5-1.4-1-.1-2 .6-2.6.6-.5 0-1.4-.6-2.3-.6-1.2 0-2.3.7-2.9 1.8-1.2 2.1-.3 5.3.9 7 .6.8 1.2 1.7 2.1 1.7.9 0 1.2-.5 2.2-.5 1 0 1.3.5 2.2.5.9 0 1.5-.8 2.1-1.6.7-.9 1-1.8 1-1.9-.1 0-1.9-.7-1.9-2.9zM8.8 3.4c.5-.6.8-1.4.7-2.3-.7 0-1.5.5-2 1.1-.4.5-.9 1.3-.7 2.2.8.1 1.6-.4 2-1z"/>
+              </svg>
+              Download for iOS
+            </a>
+            <a href="#" class="btn btn-lg" data-cta="android">
+              <!-- Android glyph -->
+              <svg width="14" height="16" viewBox="0 0 14 16" fill="#FAF8F4" aria-hidden="true">
+                <path d="M10.3 7.1l1-1.7a.2.2 0 00-.4-.2l-1 1.7a4.7 4.7 0 00-3.9 0l-1-1.7a.2.2 0 10-.4.2l1 1.7C3.5 7.9 2.3 9.3 2.1 11h9.8c-.2-1.7-1.4-3.1-3.1-3.9zM5 9.6a.5.5 0 110-1 .5.5 0 010 1zm4 0a.5.5 0 110-1 .5.5 0 010 1zM2.1 11.7v2.8a1 1 0 002 0v-2.8h-2zm7.8 0v2.8a1 1 0 002 0v-2.8h-2zm-3.9 0v3.4a1 1 0 002 0v-3.4H6z"/>
+              </svg>
+              Get on Android
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-phone-col">
+          <div class="phone-wrap hero-phone" style="--phone-tint: rgba(217,130,100,0.38); --phone-tint-fade: rgba(217,130,100,0.06);">
+            <div class="phone" aria-label="Cal Club app — Morning Brief screen">
+              <div class="phone-screen">
+                <div class="phone-island"></div>
+                <img src="assets/dawn.png" class="phone-static" alt="Cal Club — Morning Brief screen. Good morning, Naman. You've started your day well with breakfast. To keep your protein on track, perhaps consider a Chicken Salad for lunch." />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="hairline"></div>
+
+  <!-- Three check-ins a day -->
+  <section class="section checkins">
+    <div class="container">
+      <div class="smallcaps">Adapts with your day</div>
+      <h2 class="title-large checkins-head" style="margin: 16px 0 0;">
+        Cal Club meets you where you are — morning, midday, and night.
+      </h2>
+      <p class="body-large" style="margin: 16px 0 0; max-width: 54ch; color: var(--text-detail);">
+        Cal Club watches how your day is actually unfolding — what you've eaten, what you've trained, what you still have time to do — and shows up at the right moments with the answer for that moment.
+      </p>
+
+      <div class="checkins-grid">
+        <div class="checkin">
+          <div class="phone-wrap" style="--phone-tint: rgba(217,130,100,0.34); --phone-tint-fade: rgba(217,130,100,0.05);">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="phone-island"></div>
+                <img src="assets/dawn.png" class="phone-static" alt="Cal Club Morning Brief screen" />
+              </div>
+            </div>
+          </div>
+          <div class="smallcaps ember checkin-label">Dawn</div>
+          <h3 class="checkin-title">Morning Brief</h3>
+          <p class="checkin-body">A plan for the day ahead. Wake up to your target, what you trained, and where to land your meals.</p>
+        </div>
+
+        <div class="checkin">
+          <div class="phone-wrap" style="--phone-tint: rgba(110,130,148,0.36); --phone-tint-fade: rgba(110,130,148,0.05);">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="phone-island"></div>
+                <img src="assets/midday-checkin.png" class="phone-static" alt="Cal Club Midday Check-in screen" />
+              </div>
+            </div>
+          </div>
+          <div class="smallcaps ember checkin-label">Midday</div>
+          <h3 class="checkin-title">Midday Check-in</h3>
+          <p class="checkin-body">A nudge while there's still time. Behind on protein? Cal Club hands you the plate, not the math.</p>
+        </div>
+
+        <div class="checkin">
+          <div class="phone-wrap" style="--phone-tint: rgba(50,58,82,0.42); --phone-tint-fade: rgba(50,58,82,0.06);">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="phone-island"></div>
+                <img src="assets/now.png" class="phone-static" alt="Cal Club Day Summary screen" />
+              </div>
+            </div>
+          </div>
+          <div class="smallcaps ember checkin-label">Now</div>
+          <h3 class="checkin-title">Day Summary</h3>
+          <p class="checkin-body">An honest read of how the day landed — calories earned, protein hit, what to carry into tomorrow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline"></div>
+
+  <!-- Problem -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="smallcaps">Why most nutrition apps fail you</div>
+      <h2 class="title-large problem-head" style="margin: 16px 0 0;">
+        Logging your food isn't the same as knowing what to eat.
+      </h2>
+      <div class="problem-rows">
+        <div class="problem-row">
+          <div class="problem-num">01</div>
+          <div class="problem-title">Trackers count what you ate.</div>
+          <div class="problem-body">They don't tell you what to eat next.</div>
+        </div>
+        <div class="problem-row">
+          <div class="problem-num">02</div>
+          <div class="problem-title">Generic plans ignore your training.</div>
+          <div class="problem-body">A heavy leg day and a rest day shouldn't look the same.</div>
+        </div>
+        <div class="problem-row">
+          <div class="problem-num">03</div>
+          <div class="problem-title">Eating right shouldn't feel like a second job.</div>
+          <div class="problem-body">Tracking macros, guessing portions, checking labels — Cal Club does it for you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hairline"></div>
+
+  <!-- FAQ -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="smallcaps">Frequently asked</div>
+      <h2 class="title-large" style="margin: 16px 0 0;">Questions about Cal Club</h2>
+
+      <div class="faq-card" id="faqCard">
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>How is Cal Club different from ChatGPT?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            ChatGPT can answer nutrition questions, but it forgets you between conversations. It doesn't know what you ate yesterday, what you trained today, or whether you're behind on protein right now. Cal Club remembers all of it — and uses it to coach you in real time, not just respond when asked.
+          </div></div>
+        </div>
+
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>How is this different from MyFitnessPal or HealthifyMe?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Trackers log what you ate. Cal Club tells you what to eat next. If you trained heavy in the morning, Cal Club knows you need more protein at dinner — and suggests exactly what to have. MyFitnessPal will tell you you're 60g short. Cal Club will hand you the plate.
+          </div></div>
+        </div>
+
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>Does Cal Club work with Indian food?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Yes — Cal Club is built for the food Indians actually eat. Dal, roti, sabzi, biryani, paneer, dosa, and thousands of other home-cooked and restaurant dishes are recognized accurately. It also separates the protein from the curry — so chicken pieces and paneer cubes are logged individually, not mashed into one "chicken curry" estimate.
+          </div></div>
+        </div>
+
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>Do I need to log every meal?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            No. You can snap a photo, describe a meal in a sentence ("two rotis, dal, half a bowl of sabzi"), or pick from meals you've logged before. Most people log in seconds. Skip a meal and Cal Club just works with what it knows — no guilt, no streak penalty.
+          </div></div>
+        </div>
+
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>What does Cal Club cost?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Cal Club is free to download and comes with a 3-day trial. The premium plan unlocks unlimited AI coaching, personalized check-ins, and AI-powered meal logging. Full pricing is in the app.
+          </div></div>
+        </div>
+
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>Is my data private?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Yes. Your food logs, conversations, and training data are encrypted at rest and in transit. We don't sell your data, we don't share it with advertisers, and we don't use your conversations to train external AI models. What you tell Cal Club stays with Cal Club.
+          </div></div>
+        </div>
+
+        <div class="faq-row">
+          <button class="faq-q" aria-expanded="false">
+            <span>I work out casually — will this still work for me?</span>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            Cal Club works for any level. Whether you do three gym sessions a week, the occasional run, or just walk daily, Cal Club adapts. It scales protein targets to your training, suggests meals that fit your real life, and never assumes you're a competitive athlete. The bar is "you care about how you eat" — that's it.
+          </div></div>
+        </div>
+      </div>
+
+      <p class="body-small faq-foot">
+        Still have questions? Email us at <a href="mailto:hello@calclub.app">hello@calclub.app</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-final">
+    <div class="container">
+      <h2 class="display-large">Cal&nbsp;Club.</h2>
+      <p class="body-large">The AI nutrition coach for people who work out.</p>
+      <div class="btn-row" id="finalCtas">
+        <a href="#" class="btn btn-lg" data-cta="ios">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="#FAF8F4" aria-hidden="true">
+            <path d="M10.2 8.5c0-1.7 1.4-2.5 1.5-2.6-.8-1.2-2-1.3-2.5-1.4-1-.1-2 .6-2.6.6-.5 0-1.4-.6-2.3-.6-1.2 0-2.3.7-2.9 1.8-1.2 2.1-.3 5.3.9 7 .6.8 1.2 1.7 2.1 1.7.9 0 1.2-.5 2.2-.5 1 0 1.3.5 2.2.5.9 0 1.5-.8 2.1-1.6.7-.9 1-1.8 1-1.9-.1 0-1.9-.7-1.9-2.9zM8.8 3.4c.5-.6.8-1.4.7-2.3-.7 0-1.5.5-2 1.1-.4.5-.9 1.3-.7 2.2.8.1 1.6-.4 2-1z"/>
+          </svg>
+          Download for iOS
+        </a>
+        <a href="#" class="btn btn-lg" data-cta="android">
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="#FAF8F4" aria-hidden="true">
+            <path d="M10.3 7.1l1-1.7a.2.2 0 00-.4-.2l-1 1.7a4.7 4.7 0 00-3.9 0l-1-1.7a.2.2 0 10-.4.2l1 1.7C3.5 7.9 2.3 9.3 2.1 11h9.8c-.2-1.7-1.4-3.1-3.1-3.9zM5 9.6a.5.5 0 110-1 .5.5 0 010 1zm4 0a.5.5 0 110-1 .5.5 0 010 1zM2.1 11.7v2.8a1 1 0 002 0v-2.8h-2zm7.8 0v2.8a1 1 0 002 0v-2.8h-2zm-3.9 0v3.4a1 1 0 002 0v-3.4H6z"/>
+          </svg>
+          Get on Android
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-mark">
+            <img src="assets/cal-club-logo.png" alt="" class="brand-logo" />
+            <span class="brand">Cal Club</span>
+          </div>
+          <p class="body-small footer-tagline">The AI nutrition coach for people who work out.</p>
+        </div>
+        <div>
+          <div class="smallcaps footer-col-title">Contact</div>
+          <ul class="footer-links">
+            <li><a href="mailto:hello@calclub.app">hello@calclub.app</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="smallcaps footer-col-title">Follow</div>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="2" width="16" height="16" rx="4.5" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="14.6" cy="5.4" r="1" fill="currentColor"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="X">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M3 3l14 14M17 3L3 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="legal">
+          <a href="#">Privacy Policy</a>
+          <span>·</span>
+          <a href="#">Terms of Service</a>
+        </div>
+        <div>© 2026 Cal Club. Made in India.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Nav blur on scroll ─────────────────────────────────────
+    const nav = document.getElementById('nav');
+    const onScroll = () => {
+      if (window.scrollY > 12) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ─── "Download" nav → smooth scroll to hero + pulse store btns ─
+    const navDownload = document.getElementById('navDownload');
+    navDownload.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        document.querySelectorAll('#heroCtas .btn').forEach((b) => {
+          b.classList.remove('pulse'); // reset
+          // re-trigger
+          void b.offsetWidth;
+          b.classList.add('pulse');
+          setTimeout(() => b.classList.remove('pulse'), 1500);
+        });
+      }, 480);
+    });
+
+    // ─── FAQ accordion ─────────────────────────────────────────
+    document.querySelectorAll('.faq-row').forEach((row) => {
+      const btn = row.querySelector('.faq-q');
+      const panel = row.querySelector('.faq-a');
+      btn.addEventListener('click', () => {
+        const isOpen = row.classList.contains('open');
+        // Close all others
+        document.querySelectorAll('.faq-row.open').forEach((other) => {
+          if (other !== row) {
+            other.classList.remove('open');
+            const op = other.querySelector('.faq-a');
+            const ob = other.querySelector('.faq-q');
+            if (op) op.style.maxHeight = '0px';
+            if (ob) ob.setAttribute('aria-expanded', 'false');
+          }
+        });
+        if (isOpen) {
+          row.classList.remove('open');
+          panel.style.maxHeight = '0px';
+          btn.setAttribute('aria-expanded', 'false');
+        } else {
+          row.classList.add('open');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // ─── Phone carousel — auto-cycle Dawn → Midday → Now ───────
+    (function setupPhoneCarousel() {
+      const wrap   = document.getElementById('phoneWrap');
+      const track  = document.getElementById('phoneTrack');
+      const dotsEl = document.getElementById('phoneDots');
+      if (!wrap || !track || !dotsEl) return;
+
+      const dots = Array.from(dotsEl.querySelectorAll('button'));
+      const TOTAL = 3;
+      let idx = 0;
+      let timer = null;
+
+      // Tints per screen — sit behind the phone, fade into linen
+      const TINTS = [
+        // Dawn — warm orange/pink (Morning Brief gradient)
+        { tint: 'rgba(217,130,100,0.38)', fade: 'rgba(217,130,100,0.06)' },
+        // Midday — slate blue-grey (Midday Check-in)
+        { tint: 'rgba(110,130,148,0.36)', fade: 'rgba(110,130,148,0.05)' },
+        // Now — deep navy (Day Summary)
+        { tint: 'rgba(50,58,82,0.40)',    fade: 'rgba(50,58,82,0.05)' },
+      ];
+
+      function applyTint(i) {
+        const t = TINTS[i];
+        wrap.style.setProperty('--phone-tint',      t.tint);
+        wrap.style.setProperty('--phone-tint-fade', t.fade);
+      }
+
+      function goTo(i) {
+        idx = ((i % TOTAL) + TOTAL) % TOTAL;
+        track.style.transform = `translateX(-${idx * (100 / TOTAL)}%)`;
+        dots.forEach((d, n) => {
+          const on = n === idx;
+          d.classList.toggle('active', on);
+          d.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        applyTint(idx);
+      }
+
+      function next() { goTo(idx + 1); }
+
+      function startTimer() {
+        stopTimer();
+        timer = setInterval(next, 3800);
+      }
+      function stopTimer() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      dots.forEach((d) => {
+        d.addEventListener('click', () => {
+          goTo(parseInt(d.dataset.idx, 10));
+          startTimer(); // reset cycle so user has time to look
+        });
+      });
+
+      // Pause on hover (desktop) + when off-screen (perf + battery)
+      wrap.addEventListener('mouseenter', stopTimer);
+      wrap.addEventListener('mouseleave', startTimer);
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) startTimer();
+          else stopTimer();
+        });
+      }, { threshold: 0.25 });
+      io.observe(wrap);
+
+      // Respect reduced-motion — set first frame, no auto-cycle
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (reduceMotion.matches) {
+        applyTint(0);
+        return;
+      }
+
+      // Initialize
+      goTo(0);
+      startTimer();
+    })();
+
+    // ─── Dismiss responsive note ──────────────────────────────
+    const note = document.getElementById('responsiveNote');
+    document.getElementById('dismissNote').addEventListener('click', () => {
+      note.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>
