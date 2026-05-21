@@ -113,10 +113,10 @@ a { color: inherit; }
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 /* More breathing room on tablets where the hero is still single-column. */
-@media (min-width: 600px)  { .container { padding: 0 32px; } }
+@media (min-width: 600px)  { .container { padding: 0 44px; } }
 @media (min-width: 760px)  { .container { padding: 0 56px; } }
 @media (min-width: 1080px) { .container { padding: 0 48px; } }
 
@@ -254,6 +254,55 @@ a { color: inherit; }
   color: var(--stone);
   font-size: 12.5px;
 }
+
+/* Centred composition while the hero is single-column. The phone sits
+   under the text and everything reads as one balanced column. */
+@media (max-width: 1079.98px) {
+  .hero-grid > div:first-child {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-text,
+  .hero-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-cta-row {
+    justify-content: center;
+  }
+
+  /* Section headers (eyebrow + title + lead) centre with the hero. */
+  .checkins-head,
+  .problem-head {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+  }
+  .checkins .container > .smallcaps,
+  .checkins .container > .body-large,
+  .checkins .container > .title-large,
+  #why .container > .smallcaps,
+  #why .container > .title-large,
+  #how-it-works .container > .smallcaps,
+  #how-it-works .container > .title-large {
+    text-align: center;
+  }
+  /* Problem rows: number sits above title/body, all centred. */
+  .problem-row {
+    text-align: center;
+  }
+  .problem-body {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* FAQ help line + footer columns centre too. */
+  .faq-foot {
+    text-align: center;
+  }
+}
+
 @media (min-width: 760px) {
   .hero-sub { margin-top: 24px; }
   .hero-credential { margin-top: 36px; }
@@ -646,11 +695,29 @@ footer {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+  text-align: center;
+}
+.footer-grid .brand-mark,
+.footer-grid .footer-tagline,
+.footer-grid .footer-links,
+.footer-grid .footer-social {
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 @media (min-width: 760px) {
   .footer-grid {
     grid-template-columns: 1.4fr 1fr 1fr;
     gap: 48px;
+    text-align: left;
+  }
+  .footer-grid .brand-mark,
+  .footer-grid .footer-tagline,
+  .footer-grid .footer-links,
+  .footer-grid .footer-social {
+    justify-content: flex-start;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 .footer-tagline {
