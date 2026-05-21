@@ -49,9 +49,13 @@ a { color: inherit; }
    Type tokens
    ───────────────────────────────────────────────────────────── */
 .display-large {
-  font-weight: 700; font-size: 34px; line-height: 1.05;
-  letter-spacing: -0.04em; color: var(--onyx);
-  text-wrap: balance;
+  font-weight: 700; font-size: 30px; line-height: 1.05;
+  letter-spacing: -0.03em; color: var(--onyx);
+  /* text-wrap: balance can push lines past the container at narrow widths,
+     so only enable it once the container is wide enough to give it room. */
+}
+@media (min-width: 480px) {
+  .display-large { font-size: 36px; letter-spacing: -0.04em; text-wrap: balance; }
 }
 .title-large {
   font-weight: 700; font-size: 20px; line-height: 1.25;
@@ -90,10 +94,11 @@ a { color: inherit; }
   width: 39px; height: 39px;
   display: block;
   object-fit: contain;
-  /* The PNG has ~23% transparent padding on each side, which makes the
-     visible glyph float right of the container edge. Pull it back so the
-     visual left of the logo aligns with the headline text below. */
+  /* The PNG has ~23% transparent padding on each side. Pull the layout box
+     in on both sides so the visible glyph aligns with the container edge
+     AND sits closer to the wordmark (the CSS gap is the only visual gap). */
   margin-left: -9px;
+  margin-right: -9px;
 }
 
 /* Desktop bumps for hero display */
@@ -208,19 +213,69 @@ a { color: inherit; }
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Official-style App Store / Google Play badges
+   ───────────────────────────────────────────────────────────── */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 18px 0 14px;
+  background: #000;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: transform .12s ease, background .15s ease;
+  min-width: 168px;
+}
+.store-badge:hover { background: #111; }
+.store-badge:active { transform: translateY(1px); }
+
+.store-badge-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.store-badge-apple .store-badge-icon { width: 26px; height: 26px; }
+
+.store-badge-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-align: left;
+}
+
+.store-badge-top {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  color: rgba(255,255,255,0.92);
+}
+.store-badge-google .store-badge-top {
+  letter-spacing: 1px;
+}
+
+.store-badge-bottom {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-top: 3px;
+  color: #fff;
+}
+
+/* ─────────────────────────────────────────────────────────────
    Hero
    ───────────────────────────────────────────────────────────── */
 .hero {
-  padding: 48px 0 56px;
+  padding: 56px 0 72px;
 }
-/* At tablet widths the hero is single-column; keep top padding modest so
-   the headline doesn't sit in a vast void. The big editorial padding only
-   kicks in once we're in the two-column layout at 1080+. */
 @media (min-width: 760px) {
-  .hero { padding: 64px 0 72px; }
+  .hero { padding: 80px 0 96px; }
 }
 @media (min-width: 1080px) {
-  .hero { padding: 88px 0 96px; }
+  .hero { padding: 96px 0 112px; }
 }
 .hero-grid {
   display: grid;
