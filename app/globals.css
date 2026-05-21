@@ -354,13 +354,17 @@ a { color: inherit; }
    Hero
    ───────────────────────────────────────────────────────────── */
 .hero {
-  padding: 56px 0 72px;
+  /* Use logical padding properties so we only set the vertical padding here
+     and let .container's horizontal padding (32–48px) keep the hero text
+     aligned with the rest of the page's sections. */
+  padding-top: 56px;
+  padding-bottom: 72px;
 }
 @media (min-width: 760px) {
-  .hero { padding: 80px 0 96px; }
+  .hero { padding-top: 80px; padding-bottom: 96px; }
 }
 @media (min-width: 1080px) {
-  .hero { padding: 96px 0 112px; }
+  .hero { padding-top: 96px; padding-bottom: 112px; }
 }
 .hero-grid {
   display: grid;
@@ -385,6 +389,17 @@ a { color: inherit; }
 }
 .hero-credential {
   margin-top: 28px;
+  font-size: 13.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-credential-logo {
+  width: 21.6px;
+  height: 21.6px;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .hero-cta-row {
   margin-top: 20px;
@@ -474,7 +489,7 @@ a { color: inherit; }
 @media (min-width: 1080px) {
   .hero-phone .phone {
     max-width: 252px;
-    transform: rotate(1.4deg) translateX(-30%);
+    transform: rotate(1.4deg) translateX(-50%);
   }
 }
 
@@ -531,7 +546,7 @@ a { color: inherit; }
 @media (min-width: 1080px) {
   .phone-wrap::before {
     right: 0; left: auto;
-    transform: translate(-15%, -50%);
+    transform: translate(-35%, -50%);
   }
 }
 
@@ -886,19 +901,31 @@ footer {
   margin-top: 12px;
 }
 .footer-social a {
+  display: inline-flex;
   width: 20px; height: 20px;
   color: var(--stone);
-  transition: color .15s ease;
+  transition: opacity .15s ease;
 }
-.footer-social a:hover { color: var(--onyx); }
+.footer-social a img { display: block; border-radius: 4px; }
+.footer-social a:hover { opacity: 0.75; }
 
 .footer-bottom {
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid var(--divider);
   display: flex; flex-direction: column; gap: 8px;
-  color: var(--stone);
-  font-size: 12.5px;
+  color: var(--stone-deep);
+  font-size: 14px;
+}
+.footer-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.footer-heart {
+  display: inline-block;
+  vertical-align: -2px;
+  flex-shrink: 0;
 }
 .footer-bottom .legal {
   display: flex; gap: 14px;

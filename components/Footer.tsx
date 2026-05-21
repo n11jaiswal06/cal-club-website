@@ -1,3 +1,4 @@
+import Image from "next/image";
 import BrandMark from "./BrandMark";
 
 export default function Footer() {
@@ -28,26 +29,13 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Cal Club on Instagram"
               >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                <Image
+                  src="/assets/instagram-icon.webp"
+                  alt=""
+                  width={20}
+                  height={20}
                   aria-hidden="true"
-                >
-                  <rect
-                    x="2.5"
-                    y="2.5"
-                    width="19"
-                    height="19"
-                    rx="5"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                  />
-                  <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.6" />
-                  <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" />
-                </svg>
+                />
               </a>
             </div>
           </div>
@@ -58,7 +46,22 @@ export default function Footer() {
             <span>·</span>
             <a href="/terms">Terms of Service</a>
           </div>
-          <div>© 2026 Cal Club. Made in India.</div>
+          <div className="footer-copy">
+            © 2026 Cal Club. Made in India with{" "}
+            <svg
+              className="footer-heart"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M12 21s-7.5-4.6-9.5-9.4C1 8 3.2 4.5 6.7 4.5c2 0 3.6 1.1 4.5 2.6.9-1.5 2.5-2.6 4.5-2.6 3.5 0 5.7 3.5 4.2 7.1C19.5 16.4 12 21 12 21z"
+                fill="#D95F28"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </footer>
