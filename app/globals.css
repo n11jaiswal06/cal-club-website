@@ -258,20 +258,35 @@ a { color: inherit; }
 /* Hero phone — larger size so contents are readable */
 .hero-phone .phone {
   max-width: 224px;
-  transform: rotate(1.4deg) translateX(-18%);
+  transform: rotate(1.4deg) translateX(-30%);
 }
 @media (min-width: 760px)  { .hero-phone .phone { max-width: 238px; } }
 @media (min-width: 1080px) { .hero-phone .phone { max-width: 252px; } }
 
-/* Hero backdrop blob — scale 30% to match the smaller phone,
-   and shift its desktop anchor left to track the phone's translateX(-18%). */
+/* Hero backdrop glow — soft halo that hugs the phone evenly on all sides.
+   Tight ellipse, centered on the phone (not the wrap), so it shifts with
+   the phone's leftward translate instead of staying anchored to the wrap. */
 .hero-phone.phone-wrap::before {
-  max-width: 448px;
-  max-height: 504px;
+  width: 110%;
+  height: 80%;
+  max-width: 380px;
+  max-height: 560px;
+  background:
+    radial-gradient(
+      ellipse at center,
+      var(--phone-tint, rgba(217,130,100,0.55)) 0%,
+      var(--phone-tint-fade, rgba(217,130,100,0.22)) 30%,
+      transparent 68%
+    );
+  filter: blur(34px);
 }
 @media (min-width: 900px) {
   .hero-phone.phone-wrap::before {
-    transform: translate(-25%, -50%);
+    /* Phone sits at flex-end with translateX(-30%) of its own width.
+       Anchor blob to the right edge and pull it left so its centre lands
+       on the phone's visual centre. */
+    right: 0; left: auto;
+    transform: translate(-3%, -50%);
   }
 }
 
