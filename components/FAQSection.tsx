@@ -54,7 +54,7 @@ export default function FAQSection() {
 
         <p className="body-small faq-foot">
           Still have questions? Email us at{" "}
-          <a href="mailto:hello@calclub.app">hello@calclub.app</a>.
+          <a href="mailto:naman@thecalclub.com">naman@thecalclub.com</a>.
         </p>
       </div>
     </section>

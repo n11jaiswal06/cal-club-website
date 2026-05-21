@@ -214,6 +214,82 @@ a { color: inherit; }
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Legal pages (Privacy, Terms)
+   ───────────────────────────────────────────────────────────── */
+.legal-page {
+  padding: 56px 0 96px;
+}
+@media (min-width: 760px) {
+  .legal-page { padding: 80px 0 120px; }
+}
+.legal-title {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--onyx);
+  margin: 0;
+  text-wrap: balance;
+}
+@media (min-width: 760px) {
+  .legal-title { font-size: 48px; letter-spacing: -0.035em; }
+}
+.legal-meta {
+  margin: 12px 0 0;
+  color: var(--stone);
+  font-size: 13px;
+}
+.legal-prose {
+  margin-top: 40px;
+  max-width: 68ch;
+  color: var(--text-body);
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+.legal-prose h2 {
+  margin: 56px 0 16px;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--onyx);
+}
+@media (min-width: 760px) {
+  .legal-prose h2 { font-size: 26px; margin-top: 72px; }
+}
+.legal-prose h3 {
+  margin: 36px 0 12px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--onyx);
+}
+.legal-prose h4 {
+  margin: 28px 0 8px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--onyx);
+}
+.legal-prose p { margin: 0 0 14px; }
+.legal-prose ul {
+  margin: 0 0 18px;
+  padding-left: 22px;
+}
+.legal-prose li {
+  margin: 0 0 8px;
+}
+.legal-prose li::marker { color: var(--stone); }
+.legal-prose a {
+  color: var(--ember);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.legal-prose a:hover { color: var(--onyx); }
+.legal-prose strong { color: var(--onyx); font-weight: 600; }
+
+/* ─────────────────────────────────────────────────────────────
    Official-style App Store / Google Play badges
    ───────────────────────────────────────────────────────────── */
 .store-badge {
@@ -233,6 +309,14 @@ a { color: inherit; }
 }
 .store-badge:hover { background: #111; }
 .store-badge:active { transform: translateY(1px); }
+
+/* Android "coming soon" — visually identical but non-interactive. */
+.store-badge.is-disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+.store-badge.is-disabled:hover { background: #000; }
+.store-badge.is-disabled:active { transform: none; }
 
 .store-badge-icon {
   width: 28px;

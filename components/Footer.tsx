@@ -15,38 +15,38 @@ export default function Footer() {
             <div className="smallcaps footer-col-title">Contact</div>
             <ul className="footer-links">
               <li>
-                <a href="mailto:hello@calclub.app">hello@calclub.app</a>
+                <a href="mailto:naman@thecalclub.com">naman@thecalclub.com</a>
               </li>
             </ul>
           </div>
           <div>
             <div className="smallcaps footer-col-title">Follow</div>
             <div className="footer-social">
-              {/* TODO: real Instagram URL */}
-              <a href="#" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <a
+                href="https://www.instagram.com/calclub.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Cal Club on Instagram"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
                   <rect
-                    x="2"
-                    y="2"
-                    width="16"
-                    height="16"
-                    rx="4.5"
+                    x="2.5"
+                    y="2.5"
+                    width="19"
+                    height="19"
+                    rx="5"
                     stroke="currentColor"
-                    strokeWidth="1.4"
+                    strokeWidth="1.6"
                   />
-                  <circle cx="10" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.4" />
-                  <circle cx="14.6" cy="5.4" r="1" fill="currentColor" />
-                </svg>
-              </a>
-              {/* TODO: real X / Twitter URL */}
-              <a href="#" aria-label="X">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path
-                    d="M3 3l14 14M17 3L3 17"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
+                  <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.6" />
+                  <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" />
                 </svg>
               </a>
             </div>
@@ -54,11 +54,9 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <div className="legal">
-            {/* TODO: real Privacy Policy route */}
-            <a href="#">Privacy Policy</a>
+            <a href="/privacy">Privacy Policy</a>
             <span>·</span>
-            {/* TODO: real Terms of Service route */}
-            <a href="#">Terms of Service</a>
+            <a href="/terms">Terms of Service</a>
           </div>
           <div>© 2026 Cal Club. Made in India.</div>
         </div>

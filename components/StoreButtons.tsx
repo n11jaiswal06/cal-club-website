@@ -6,35 +6,38 @@ export type StoreButtonsHandle = {
   pulse: () => void;
 };
 
+const APP_STORE_URL = "https://apps.apple.com/in/app/cal-club/id6752263882";
+
 const StoreButtons = forwardRef<StoreButtonsHandle>(function StoreButtons(_props, ref) {
   const iosRef = useRef<HTMLAnchorElement>(null);
-  const androidRef = useRef<HTMLAnchorElement>(null);
+  const androidRef = useRef<HTMLDivElement>(null);
 
   useImperativeHandle(ref, () => ({
     pulse() {
-      const buttons = [iosRef.current, androidRef.current].filter(
-        (b): b is HTMLAnchorElement => b !== null
-      );
-      buttons.forEach((b) => {
+      const targets: HTMLElement[] = [];
+      if (iosRef.current) targets.push(iosRef.current);
+      if (androidRef.current) targets.push(androidRef.current);
+      targets.forEach((b) => {
         b.classList.remove("pulse");
         // Force reflow so the animation can re-trigger
         void b.offsetWidth;
         b.classList.add("pulse");
       });
       window.setTimeout(() => {
-        buttons.forEach((b) => b.classList.remove("pulse"));
+        targets.forEach((b) => b.classList.remove("pulse"));
       }, 1500);
     },
   }));
 
   return (
     <>
-      {/* TODO: real App Store link */}
       <a
-        href="#"
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         className="store-badge store-badge-apple"
         ref={iosRef}
-        aria-label="Download on the App Store"
+        aria-label="Download Cal Club on the App Store"
       >
         <svg
           className="store-badge-icon"
@@ -50,40 +53,30 @@ const StoreButtons = forwardRef<StoreButtonsHandle>(function StoreButtons(_props
         </span>
       </a>
 
-      {/* TODO: real Play Store link */}
-      <a
-        href="#"
-        className="store-badge store-badge-google"
+      <div
+        className="store-badge store-badge-google is-disabled"
         ref={androidRef}
-        aria-label="Get it on Google Play"
+        aria-label="Cal Club for Android — coming soon"
+        role="img"
       >
         <svg
           className="store-badge-icon"
           viewBox="0 0 512 512"
           aria-hidden="true"
         >
-          <path
-            fill="#34A853"
-            d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z"
-          />
-          <path
-            fill="#FBBC04"
-            d="M104.6 499L325.3 277.7l60.1 60.1L104.6 499z"
-          />
+          <path fill="#34A853" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z" />
+          <path fill="#FBBC04" d="M104.6 499L325.3 277.7l60.1 60.1L104.6 499z" />
           <path
             fill="#4285F4"
             d="M104.6 13C97.2 16.8 92.3 24.5 92.3 34.6v442.8c0 10.1 4.9 17.8 12.3 21.6l220.7-221.4L104.6 13z"
           />
-          <path
-            fill="#EA4335"
-            d="M483.7 227.5l-98.4-56.5-67.2 67.3 67.2 67.3 98.4-56.5c12.2-7 12.2-24.7 0-31.6z"
-          />
+          <path fill="#EA4335" d="M483.7 227.5l-98.4-56.5-67.2 67.3 67.2 67.3 98.4-56.5c12.2-7 12.2-24.7 0-31.6z" />
         </svg>
         <span className="store-badge-text">
-          <span className="store-badge-top">GET IT ON</span>
-          <span className="store-badge-bottom">Google Play</span>
+          <span className="store-badge-top">Android</span>
+          <span className="store-badge-bottom">Coming soon</span>
         </span>
-      </a>
+      </div>
     </>
   );
 });
