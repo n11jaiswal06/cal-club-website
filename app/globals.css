@@ -647,6 +647,12 @@ a { color: inherit; }
 .checkin .phone {
   max-width: 220px;
   transform: rotate(0);
+  box-shadow:
+    0 0 84px 22px var(--phone-tint, rgba(217,130,100,0.34)),
+    0 0 36px 5px var(--phone-tint, rgba(217,130,100,0.34)),
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 30px 60px -20px rgba(40,30,20,0.32),
+    0 12px 28px -12px rgba(40,30,20,0.18);
 }
 @media (min-width: 760px)  { .checkin .phone { max-width: 200px; } }
 @media (min-width: 1080px) { .checkin .phone { max-width: 220px; } }
@@ -671,8 +677,9 @@ a { color: inherit; }
   max-width: 32ch;
 }
 .checkin .phone-wrap::before {
-  max-width: 360px;
-  max-height: 460px;
+  max-width: 352px;
+  max-height: 432px;
+  filter: blur(25px);
 }
 
 /* ─────────────────────────────────────────────────────────────
