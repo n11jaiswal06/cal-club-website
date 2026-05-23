@@ -3,8 +3,8 @@ export const CHECKINS = [
     screen: "dawn" as const,
     src: "/assets/dawn.png",
     alt: "Cal Club Morning Brief screen",
-    tint: "rgba(217,130,100,0.34)",
-    fade: "rgba(217,130,100,0.05)",
+    tint: "rgba(217,130,100,0.26)",
+    fade: "rgba(217,130,100,0.04)",
     label: "Dawn",
     title: "Morning Brief",
     body:
@@ -14,8 +14,8 @@ export const CHECKINS = [
     screen: "midday" as const,
     src: "/assets/midday-checkin.png",
     alt: "Cal Club Midday Check-in screen",
-    tint: "rgba(110,130,148,0.36)",
-    fade: "rgba(110,130,148,0.05)",
+    tint: "rgba(110,130,148,0.27)",
+    fade: "rgba(110,130,148,0.04)",
     label: "Midday",
     title: "Midday Check-in",
     body:
@@ -25,8 +25,8 @@ export const CHECKINS = [
     screen: "now" as const,
     src: "/assets/now.png",
     alt: "Cal Club Day Summary screen",
-    tint: "rgba(50,58,82,0.42)",
-    fade: "rgba(50,58,82,0.06)",
+    tint: "rgba(50,58,82,0.32)",
+    fade: "rgba(50,58,82,0.045)",
     label: "Now",
     title: "Day Summary",
     body:
