@@ -10,9 +10,24 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thecalclub.com"),
   title: "Cal Club — The AI nutrition coach for people who work out.",
   description:
     "Cal Club knows your training, your goals, and the food you actually eat — and coaches you in real time.",
+  openGraph: {
+    type: "website",
+    url: "https://thecalclub.com",
+    siteName: "Cal Club",
+    title: "Cal Club — The AI nutrition coach for people who work out.",
+    description:
+      "Cal Club knows your training, your goals, and the food you actually eat — and coaches you in real time.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cal Club — The AI nutrition coach for people who work out.",
+    description:
+      "Cal Club knows your training, your goals, and the food you actually eat — and coaches you in real time.",
+  },
 };
 
 export default function RootLayout({
